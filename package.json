@@ -12,6 +12,7 @@
     "docs:jsdoc": "jsdoc -c ./.jsdoc.json -R ./README.md -r packages/gve/**/src -d output/jsdoc/docs",
     "predocs:dox": "mkdir -p output/dox/docs",
     "docs:dox": "doxdox packages/gve/**/src --layout bootstrap --output output/dox/docs/index.html",
+    "check-env": "node -e 'console.log(process.env)' | grep talisman",
     "git:commit": "cz",
     "lerna:ci": "npm ci && lerna clean --yes && lerna bootstrap",
     "lerna:version": "npx lerna version --conventional-commits --no-push",
@@ -22,9 +23,13 @@
     "licenses": "license-checker --csv --production > output/licenses.csv",
     "licenses:gpl": "license-checker --production | grep GPL",
     "lint": "eslint '**/{src,test}/**/*.{js,json}'",
+    "talisman:checksum": "scripts/talisman/scan-cli.sh",
     "talisman:scan": "scripts/talisman/scan.sh",
     "talisman:view": "scripts/talisman/view.sh",
-    "postinstall": "cd docs && npm i && cd .."
+    "postinstall": "cd docs && npm i && cd ..",
+    "talisman:precommit": "${TALISMAN_HOME}/talisman_hook_script pre-commit",
+    "talisman:prepush": "${TALISMAN_HOME}/talisman_hook_script pre-push",
+    "prepare": "husky install"
   },
   "author": "Matt Norris <matnorri@cisco.com>",
   "license": "Apache-2.0",
@@ -39,6 +44,7 @@
     "eslint-plugin-sonar": "^0.5.0",
     "jsdoc": "^3.6.7",
     "jsdoc-to-markdown": "^7.0.1",
+    "husky": "^7.0.2",
     "lerna": "^3.22.1",
     "netlify-cli": "^4.4.2",
     "prettier": "2.0.5",
@@ -48,9 +54,18 @@
     "commitizen": {
       "path": "./node_modules/cz-lerna-changelog"
     },
-    "docsApi": "docs/docs/api.md"
+    "docsApi": "docs/docs/api.md",
+    "reports": {
+      "path": "./output/reports"
+    },
+    "talisman": "${TALISMAN_HOME}/talisman_darwin_amd64"
   },
   "dependencies": {
     "license-checker": "^25.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
+    }
   }
 }
