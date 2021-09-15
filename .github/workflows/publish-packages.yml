@@ -1,3 +1,7 @@
+# GitHub Action
+# description: Publish newly-versioned packages to NPM
+# author: Matt Norris <matnorri@cisco.com>
+
 name: Publish Packages
 on:
   workflow_run:
@@ -7,9 +11,6 @@ on:
 jobs:
   publish-packages:
     env:
-      # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idenv
-      # https://github.community/t/workflow-run-completed-event-triggered-by-failed-workflow/128001/2
-      # https://kevsoft.net/2020/06/10/running-github-action-steps-and-jobs-only-on-push-to-master.html
       IS_VERSIONING_SUCCESSFUL: ${{ github.event.workflow_run.conclusion == 'success' }}
     if: ${{ env.IS_VERSIONING_SUCCESSFUL }}
     runs-on: ubuntu-latest
