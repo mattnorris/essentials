@@ -13,9 +13,8 @@ on:
     types: [closed]
 jobs:
   version-packages:
-    env:
-      IS_MERGED: ${{ github.event.pull_request.merged }}
-    if: ${{ env.IS_MERGED }}
+    # IS_PR_MERGED
+    if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

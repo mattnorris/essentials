@@ -10,9 +10,8 @@ on:
     branches: [main]
 jobs:
   publish-packages:
-    env:
-      IS_VERSIONING_SUCCESSFUL: ${{ github.event.workflow_run.conclusion == 'success' }}
-    if: ${{ env.IS_VERSIONING_SUCCESSFUL }}
+    # IS_VERSIONING_SUCCESSFUL
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
