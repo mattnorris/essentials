@@ -4,6 +4,8 @@ on:
     branches:
       - gh-actions
       - main
+    tags-ignore:
+      - "*"
 jobs:
   version-packages:
     runs-on: ubuntu-latest
