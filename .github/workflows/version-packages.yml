@@ -1,13 +1,21 @@
+# GitHub Action
+# description: Versions packages merged into main
+# author: Matt Norris <matnorri@cisco.com>
+# references:
+#    - [Trigger when PR is merged](https://stackoverflow.com/a/67833464/154065)
+
 name: Version Packages
 on:
-  push:
+  pull_request:
     branches:
       - gh-actions
       - main
-    tags-ignore:
-      - "*"
+    types: [closed]
 jobs:
   version-packages:
+    env:
+      IS_MERGED: ${{ github.event.pull_request.merged }}
+    if: ${{ env.IS_MERGED }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
