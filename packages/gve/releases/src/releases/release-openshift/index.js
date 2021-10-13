@@ -130,9 +130,9 @@ class OpenShiftRelease extends Release {
     this.buildService();
 
     const instructions = [
-      `Deploy these configurations with:`,
+      "Deploy these configurations with:",
       "",
-      `  npm run release`,
+      "  npm run app:deploy",
       "",
     ];
 
@@ -192,7 +192,7 @@ class OpenShiftRelease extends Release {
     const instructions = [
       `${colors.green("Created Route configuration.")} Deploy it with:`,
       "",
-      "  npm run release:route",
+      "  npm run route:deploy",
       "",
       `${colors.yellow(
         "WARN: You will need to update and provision the route policy after deploying."

@@ -80,7 +80,7 @@ class GoogleRelease extends Release {
     const instructions = [
       "Deploy this configuration with:",
       "",
-      `  npm run release:google`,
+      "  npm run app:deploy:google",
       "",
     ];
 
