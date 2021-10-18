@@ -7,11 +7,11 @@
     "audit:prod": "npm audit --only=prod && lerna --no-bail exec --ignore $npm_package_config_lerna_ignore -- npm audit --only=prod",
     "audit:fix:prod": "export $(cat .env | xargs) && scripts/lerna/audit-fix.sh",
     "docs:make": "npm run docs:make:api && cd docs && npm run build",
-    "docs:make:api": "npx jsdoc2md packages/gve-private/**[^node_modules]/src/**/*.js > $npm_package_config_docsApi",
+    "docs:make:api": "npx jsdoc2md packages/gve/**[^node_modules]/src/**/*.js > $npm_package_config_docsApi",
     "postdocs:make:api": "echo \"---\nid: api\ntitle: API\nsidebar_position: 4\n---\n$(cat $npm_package_config_docsApi)\" > $npm_package_config_docsApi",
     "docs:serve": "cd docs && npm run serve",
     "docs:serve:dev": "cd docs && npx docusaurus start",
-    "docs:jsdoc": "jsdoc -c ./.jsdoc.json -R ./README.md -r packages/gve-private/**[^node_modules]/src -d output/jsdoc/docs",
+    "docs:jsdoc": "jsdoc -c ./.jsdoc.json -R ./README.md -r packages/gve/**[^node_modules]/src -d output/jsdoc/docs",
     "predocs:jsdoc": "mkdir -p output/jsdoc/docs",
     "docs:publish": "cd docs && env-cmd --fallback -f .env.${NODE_ENV} npm run deploy",
     "git:commit": "cz",
@@ -51,6 +51,7 @@
     "commitizen": {
       "path": "./node_modules/cz-lerna-changelog"
     },
+    "docsApi": "docs/docs/api.md",
     "lerna": {
       "ignore": "@gve/bridge"
     },
