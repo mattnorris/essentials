@@ -23,11 +23,11 @@ const users = [
 const siteConfig = {
   title: "Essentials",
   tagline: "Packages to build, release, and run great software",
-  url: "https://your-docusaurus-test-site.com", // Your website URL
+  // url: "https://your-docusaurus-test-site.com", // Your website URL
   baseUrl: "/", // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
-  //   url: 'https://ciscodevnet.github.io',
-  //   baseUrl: '/essentials/',
+  url: "https://ciscodevnet.github.io",
+  baseUrl: "/essentials/",
 
   // Used for publishing and more
   projectName: "essentials",
