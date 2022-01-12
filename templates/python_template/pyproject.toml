@@ -25,6 +25,8 @@ flake8-colors = "^0.1.9"
 pre-commit = "^2.16.0"
 commitizen = "^2.20.0"
 toml = "^0.10.2"
+pylint = "^2.12.2"
+pylint-json2html = "^0.3.0"
 
 [tool.poetry.scripts]
 make-pre-commit-config = "python_scripts.pre_commit_config_yaml:make"
