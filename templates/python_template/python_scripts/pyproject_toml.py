@@ -9,9 +9,17 @@ import toml
 from pathlib import Path
 
 ORIGINAL_PACKAGE_NAME = "python_template"
+ORIGINAL_PACKAGE_PATH = Path("./src") / ORIGINAL_PACKAGE_NAME
 PYPROJECT_TOML = "pyproject.toml"
 PYPROJECT_TOML_PATH = Path(PYPROJECT_TOML)
 PROJECT_DIR_NAME = PYPROJECT_TOML_PATH.resolve().parent.name
+
+DEFAULT_SEMANTIC_RELEASE_CONFIG = {
+    "version_variable": [
+        f"{ORIGINAL_PACKAGE_PATH}/__init__.py:__version__",
+        f"{PYPROJECT_TOML}:version",
+    ]
+}
 
 parser = argparse.ArgumentParser()
 parser.add_argument("name", help="the new project name", default=PROJECT_DIR_NAME)
@@ -25,6 +33,21 @@ def mkdirp(dir_path):
         os.mkdir(dir_path)
     except FileExistsError:
         pass
+
+
+def get_version_variable(package_path):
+    version_variable_path = Path(package_path).parent / "__init__.py"
+    version_variable_location = f"{version_variable_path}:__version__"
+    return [version_variable_location, f"{PYPROJECT_TOML}:version"]
+
+
+def get_tool_semantic_release_section(name):
+    PACKAGE_DIR = Path("./src")
+    package_path = PACKAGE_DIR / name
+    section = DEFAULT_SEMANTIC_RELEASE_CONFIG | {
+        "version_variable": get_version_variable(package_path)
+    }
+    return section
 
 
 def create_backup():
@@ -67,7 +90,17 @@ def update_pyproject_toml(name):
     """
     create_backup()
     parsed_toml = toml.load(PYPROJECT_TOML_PATH)
+
+    # Update package name.
     parsed_toml["tool"]["poetry"]["name"] = name
+
+    # Update the semantic release section.
+    PACKAGE_DIR = Path("./src")
+    package_path = PACKAGE_DIR / name
+    parsed_toml["tool"]["semantic_release"]["version_variable"] = get_version_variable(
+        package_path
+    )
+
     with open(PYPROJECT_TOML_PATH, "w") as updated_file:
         toml.dump(parsed_toml, updated_file)
 

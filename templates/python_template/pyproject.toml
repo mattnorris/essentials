@@ -29,3 +29,13 @@ toml = "^0.10.2"
 [tool.poetry.scripts]
 make-pre-commit-config = "python_scripts.pre_commit_config_yaml:make"
 update-pyproject = "python_scripts.pyproject_toml:update"
+
+[tool.semantic_release]
+version_variable = [
+    "src/python_template/__init__.py:__version__",
+    "pyproject.toml:version"
+]
+branch = "main"
+upload_to_pypi = false
+upload_to_release = true
+build_command = "pip install poetry && poetry build"

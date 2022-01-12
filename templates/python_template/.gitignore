@@ -149,4 +149,6 @@ cython_debug/
 #
 
 *.bak
+*.orig
+.DS_Store
 .env.*

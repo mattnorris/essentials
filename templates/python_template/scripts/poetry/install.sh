@@ -5,4 +5,4 @@
 #   Install poetry after pyenv.
 
 # Install project dependencies.
-poetry install
+poetry install --no-root
